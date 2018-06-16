@@ -96,7 +96,7 @@ if( isset($_POST['btn-login']) ) {
         <div class='card-group'>
           <?php
 
-          $sql = "SELECT * FROM media WHERE availibility = '1'";
+          $sql = "SELECT * FROM media WHERE media_type = 'Blue Ray DVD' && availibility='1'";
 
           $result = $connect->query($sql);
 
@@ -124,7 +124,7 @@ if( isset($_POST['btn-login']) ) {
           ?>
         </div>
       </section>
-      <h2>Please log in to see the List</h2>
+      <h2>Please log in to see the Full List</h2>
     </section>
     <section>
       <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="on">
