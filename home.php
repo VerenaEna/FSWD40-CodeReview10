@@ -87,7 +87,7 @@ $title = $media['title'];
                         <p class='card-text'><small class='text-muted'>".$row['media_type']." with #".$row['ISBN']." is ".$row['availibility']." </small></p>
                       </div>
                       <a class='btn btn-outline-secondary' href='update.php?ISBN=".$row['ISBN']."'>Edit</a>
-                      <a class='btn btn-danger' href='delete.php?car_id=".$row['ISBN']."'>Delete</a>
+                      <a class='btn btn-danger' href='delete.php?ISBN=".$row['ISBN']."'>Delete</a>
                   </div>";
             }
         } else {
