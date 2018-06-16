@@ -87,6 +87,9 @@ if( isset($_POST['btn-login']) ) {
         <li class="nav-item">
           <a class="nav-link" href="contact.html">Contact</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">Log in</a>
+        </li>
       </ul>
     </header>
     <section>
@@ -158,7 +161,7 @@ if( isset($_POST['btn-login']) ) {
           ?>
         </table>
       </div>
-        <section class="card-group">
+        <section class="card-group group">
 
           <?php
 
