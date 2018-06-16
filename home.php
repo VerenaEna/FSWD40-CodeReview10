@@ -2,6 +2,8 @@
 ob_start();
 session_start();
 require_once 'dbconnect.php';
+require_once 'actions/db_connect.php';
+
 
 // if session is not set this will redirect to login page
 if( !isset($_SESSION['users']) ) {
@@ -11,99 +13,23 @@ if( !isset($_SESSION['users']) ) {
 // select logged-in users detail
 $res=mysqli_query($conn, "SELECT * FROM users WHERE user_id=".$_SESSION['users']);
 $userRow=mysqli_fetch_array($res, MYSQLI_ASSOC);
+
+$title = $media['title'];
+
+
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>
-<title>Login & Registration System</title>
-</head>
-<body>
-  <!DOCTYPE html>
   <html>
     <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <title>Welcome - <?php echo $userRow['user_name']; ?></title>
       <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous"><!-- for the heart icon in the footer -->
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <link rel="stylesheet" href="style.css" />
     </head>
-    <style>
-      html {
-        font-size: 90%;
-        background: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.45)),
-          url("asset/img/erol-ahmed-books-unsplash.jpg") no-repeat center center fixed;
-        background-size: cover;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-      }
-      body {
-        height: 50%;
-        font-size: 1rem;
-        position: relative;
-        /* display: flex;
-        justify-content: flex-end; */
-        color: white;
-        background-color: transparent;
-      }
-      header {
-        background-color: white;
-        height: 100%;
-        width: 100%;
-      }
-      main {
-        width:40%;
-      }
 
-      section {
-        padding: 2rem;
-      }
-      form {
-        background: rgba(0,0,0,.5);
-        display:flex;
-        flex-direction: column;
-        width: 230px;
-        max-width: 80%;
-        padding: 5px;
-      }
-      h2{
-        text-align: center;
-        text-transform: uppercase;
-        padding-bottom: 1rem;
-      }
-      .registerText {
-        padding: 5px 0 0 0;
-        font-size: .7rem;
-        font-weight: bold;
-        color: lightgrey;
-
-      }
-
-      #emailHelp {
-        font-size: .7rem;
-      }
-
-      .signup {
-        text-decoration: underline;
-      }
-
-      .text-muted {
-        color: white;
-      }
-
-      @media screen and (max-width:420px){
-        main {
-          width: 100%;
-        }
-        form {
-          max-width: 100%;
-        }
-        body {
-          width: 100%;;
-        }
-      }
-    </style>
   <body>
     <header class="header">
       <ul class="nav nav-pills">
@@ -123,34 +49,45 @@ $userRow=mysqli_fetch_array($res, MYSQLI_ASSOC);
 
       <a href="logout.php?logout">Sign Out</a>
     </section>
-    <section class="media_cards">
-      <div class="card-group">
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
+    <section class="cards">
+
+
+      <div class='card-group'>
+        <?php
+
+        $sql = "SELECT * FROM media order by pub_date";
+
+        $result = $connect->query($sql);
+
+
+        if($result->num_rows > 0) {
+
+            while($row = $result->fetch_assoc()) {
+
+                echo
+                "
+                  <div class='card'>
+                    <img class='card-img-top' src='".$row['img_src']."' alt='Card image of the media' />
+                      <div class='card-body'>
+                        <h5 class='card-title'>".$row['title']."</h5>
+                        <p class='card-text'>Published ".$row['pub_date']." .".$row['short_descr']."</p>
+                        <p class='card-text'><small class='text-muted'>".$row['media_type']." with #".$row['ISBN']." is ".$row['availibility']." </small></p>
+                      </div>
+                      <a href='update.php?car_id=".$row['ISBN']."'><button type='button'>Edit</button></a>
+                      <a href='delete.php?car_id=".$row['ISBN']."'><button type='button'>Delete</button></a>
+                  </div>";
+            }
+        } else {
+            echo "<p><center>No Data Avaliable</center></p>";
+        }
+        ?>
       </div>
     </section>
+
+    <div class="manageUser">
+    <button type="button"><a href="create.php">Add Media</a></button>
+
+</div>
 </body>
 </html>
 <?php ob_end_flush(); ?>
