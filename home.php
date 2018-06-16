@@ -108,6 +108,8 @@ $title = $media['title'];
             <th scope='col'>publishing date</th>
             <th scope='col'>Type</th>
             <th scope='col'>availibility</th>
+            <th scope='col'>Options</td>
+
             </tr>
           </thead>
 
@@ -130,6 +132,9 @@ $title = $media['title'];
                         <td>".$row['pub_date']."</th>
                         <td>".$row['media_type']."</td>
                         <td>".$row['availibility']."</td>
+                        <td><a class='btn btn-outline-secondary' href='update.php?ISBN=".$row['ISBN']."'>Edit</a></td>
+                        <td><a class='btn btn-danger' href='delete.php?ISBN=".$row['ISBN']."'>Delete</a></td>
+
                       </tr>
                     </tbody>";
               }
