@@ -2,6 +2,8 @@
 ob_start();
 session_start();
 require_once 'dbconnect.php';
+require_once 'actions/db_connect.php';
+
 
 // it will never let you open index(login) page if session is set
 if ( isset($_SESSION['users'])!="" ) {
@@ -68,7 +70,7 @@ if( isset($_POST['btn-login']) ) {
       <title>VerenaEnas Library</title>
       <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous"><!-- for the heart icon in the footer -->
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
       <link rel="stylesheet" href="style.css" />
     </head>
 
@@ -88,6 +90,40 @@ if( isset($_POST['btn-login']) ) {
     </header>
     <section>
       <h1>This is our Big Library</h1>
+      <section class="cards">
+
+
+        <div class='card-group'>
+          <?php
+
+          $sql = "SELECT * FROM media WHERE availibility = '1'";
+
+          $result = $connect->query($sql);
+
+
+          if($result->num_rows > 0) {
+
+              while($row = $result->fetch_assoc()) {
+
+                  echo
+                  "
+                    <div class='card'>
+                      <img class='card-img-top' src='".$row['img_src']."' alt='Card image of the media' />
+                        <div class='card-body'>
+                          <h5 class='card-title'>".$row['title']."</h5>
+                          <p class='card-text'>Published ".$row['pub_date']." .".$row['short_descr']."</p>
+                          <p class='card-text'><small class='text-muted'>".$row['media_type']." with #".$row['ISBN']." is ".$row['availibility']." </small></p>
+                        </div>
+                        <a href='update.php?car_id=".$row['ISBN']."'><button type='button'>Edit</button></a>
+                        <a href='delete.php?car_id=".$row['ISBN']."'><button type='button'>Delete</button></a>
+                    </div>";
+              }
+          } else {
+              echo "<p><center>No Data Avaliable</center></p>";
+          }
+          ?>
+        </div>
+      </section>
       <h2>Please log in to see the List</h2>
     </section>
     <section>
