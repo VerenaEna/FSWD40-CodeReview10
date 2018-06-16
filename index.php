@@ -58,17 +58,13 @@ if( isset($_POST['btn-login']) ) {
 
 }
 ?>
+
 <!DOCTYPE html>
-<html>
-<head>
-<title>Login & Registration System</title>
-</head>
-<body>
-  <!DOCTYPE html>
   <html>
     <head>
       <title>VerenaEnas Library</title>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous"><!-- for the heart icon in the footer -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
