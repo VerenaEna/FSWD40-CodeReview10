@@ -85,27 +85,34 @@ $password = hash('sha256', $pass);
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login & Registration System</title>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>VerenaEnas Library Registration</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous"><!-- for the heart icon in the footer -->
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header">
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link active" href="index.php">Home</a>
+        <a class="nav-link" href="index.php">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="index.php">Login</a>
+        <a class="nav-link" href="register.php">Register</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="contact.html">Contact</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.php">Log in</a>
+      </li>
     </ul>
   </header>
+  <section>
    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
 
 
-            <h2>Sign Up.</h2>
+            <h2>Here you can sign up</h2>
             <hr />
 
            <?php
@@ -120,38 +127,43 @@ $password = hash('sha256', $pass);
   }
   ?>
 
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">
+        <i class="fas fa-user"></i>
+      </span>
+    </div>
+    <input type="text" name="name" class="form-control" placeholder="Enter your name" aria-label="name" aria-describedby="basic-addon1" maxlength="50" value="<?php echo $name ?>" />
+    <span class="text-danger"><?php echo $nameError; ?></span>
+  </div>
 
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">
+        <i class="fas fa-at"></i>
+      </span>
+    </div>
+    <input type="email" name="email" class="form-control" placeholder="Enter Your Email" aria-label="name" aria-describedby="basic-addon1" maxlength="40" value="<?php echo $email ?>" />
+    <span class="text-danger"><?php echo $emailError; ?></span>
+  </div>
 
-
-            <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50" value="<?php echo $name ?>" />
-
-               <span class="text-danger"><?php echo $nameError; ?></span>
-
-
-
-
-            <input type="email" name="email" class="form-control" placeholder="Enter Your Email" maxlength="40" value="<?php echo $email ?>" />
-
-               <span class="text-danger"><?php echo $emailError; ?></span>
-
-
-
-
-
-            <input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
-
-               <span class="text-danger"><?php echo $passError; ?></span>
-
-            <hr />
-
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">
+        <i class="fas fa-lock"></i>
+      </span>
+    </div>
+    <input type="password" name="pass" class="form-control" placeholder="Enter your prefered Password" aria-label="name" aria-describedby="basic-addon1" maxlength="15">
+    <span class="text-danger"><?php echo $passError; ?></span>
+  </div>
 
             <button type="submit" class="btn btn-block btn-primary" name="btn-signup">Sign Up</button>
-            <hr />
 
-            <a href="index.php">Log in Here...</a>
+            <a href="index.php">Already a User? Login here</a>
 
 
-   </form>
+          </form>
+     </section>
 </body>
 </html>
 <?php ob_end_flush(); ?>
